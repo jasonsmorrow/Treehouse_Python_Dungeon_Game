@@ -6,3 +6,5 @@ I will grab the finished code from the teacher to show the difference between hi
 This is not to say either is better or worse, just that this was my solution without following along.
 
 FWIW, I would probably not have used a list of tuples as a map.  I probably would've gone with a list of lists as rows and columns.
+
+Also, there was some clean up and refactoring done in the videos that I didn't bother with. (and probably won't).
