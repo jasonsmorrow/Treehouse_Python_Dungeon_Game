@@ -6,10 +6,10 @@ from os import system, name
 # DONE - pick random location for exit door
 # DONE - pick random location for monster
 # DONE - draw player in the grid
-# take input for movement
-# move player unless invalid move (past edge of grid)
-# check for win/loss
-# clear screen and redraw grid
+# DONE - take input for movement
+# DONE - move player unless invalid move (past edge of grid)
+# DONE - check for win/loss
+# DONE - clear screen and redraw grid
 
 CELLS = [
   (0, 0), (1, 0), (2, 0), (3, 0), (4, 0),
@@ -28,7 +28,7 @@ def clear():
         _ = system('clear')
 
 
-def print_map(player):
+def print_map(player, icon='@'):
     # if player at location, draw player
     cell_border = "-" * 11
     game_map = [cell_border]
@@ -36,7 +36,7 @@ def print_map(player):
         current_row = "|"
         for x in range(5):
             if player[0] == x and player[1] == y:
-                current_row += '@|'
+                current_row += '{}|'.format(icon)
             else:
                 current_row += ' |'
         game_map.append(current_row)
@@ -103,12 +103,21 @@ while True:
         break
     elif move in get_moves(player_one):
         player_one = move_player(player_one, move)
-        print_map(player_one)
+        if player_one == door:
+            print_map(player_one, '#')
+            print('You escaped the dungeon!')
+            break
+        elif player_one == monster:
+            print_map(player_one, '%')
+            print('You have been eaten by a grue!')
+            break
+        else:
+            print_map(player_one)
     else:
         print("You can't move {}.  Please try again.".format(move))
   
-    # Good move?  Change position
+    # DONE - Good move?  Change position
     # DONE - Bad move? Dont' change anything
-    # On the door? They win!
-    # On the monster? They lose!
-    # Otherwise, loop back around
+    # DONE - On the door? They win!
+    # DONE - On the monster? They lose!
+    # DONE - Otherwise, loop back around
