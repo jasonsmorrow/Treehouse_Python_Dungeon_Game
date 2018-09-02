@@ -30,7 +30,7 @@ def clear():
 
 def print_map(player, icon='@'):
     # if player at location, draw player
-    cell_border = "-" * 11
+    cell_border = " _" * 5
     game_map = [cell_border]
     for y in range(5):
         current_row = "|"
@@ -38,9 +38,9 @@ def print_map(player, icon='@'):
             if player[0] == x and player[1] == y:
                 current_row += '{}|'.format(icon)
             else:
-                current_row += ' |'
+                current_row += '_|'
         game_map.append(current_row)
-        game_map.append(cell_border)
+        #game_map.append(cell_border)
     
     clear()
     for item in game_map:
