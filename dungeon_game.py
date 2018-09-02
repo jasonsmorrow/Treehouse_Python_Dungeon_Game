@@ -52,12 +52,20 @@ def get_locations():
     return random.sample(CELLS, 3)
 
 
-def move_player(player, move):
+def move_player(player, this_move):
     # get the player's location
     # if move == LEFT, x-1
+    if this_move == 'LEFT':
+        player = (player[0] - 1, player[1])
     # if move == RIGHT, x+1
+    if this_move == 'RIGHT':
+        player = (player[0] + 1, player[1])
     # if move == UP, y-1
+    if this_move == 'UP':
+        player = (player[0], player[1] - 1)
     # if move == DOWN, y-1
+    if this_move == 'DOWN':
+        player = (player[0], player[1] + 1)
     return player
 
 
@@ -73,19 +81,19 @@ def get_moves(player):
     if player[0] == 0:
         moves.remove('LEFT')
     # if player's x == 4, they can't move right
-    if player[1] == 0:
+    if player[0] == 4:
         moves.remove('RIGHT')
     return moves
 
 
 # Initial setup - choose player, door, and monster location
-player, door, monster = get_locations()
+player_one, door, monster = get_locations()
 print("Welcome to the dungeon!")
-print_map(player)
+print_map(player_one)
 
 while True:
-    print("You're currently in room {}".format(player))  # fill with player position
-    print("You can move {}".format(get_moves(player))) # fill with available moves
+    print("You're currently in room {}".format(player_one))  # fill with player position
+    print("You can move {}".format(get_moves(player_one))) # fill with available moves
     print("Enter QUIT to quit")
   
     move = input("> ")
@@ -93,12 +101,14 @@ while True:
   
     if move == 'QUIT':
         break
+    elif move in get_moves(player_one):
+        player_one = move_player(player_one, move)
+        print_map(player_one)
     else:
-        player = random.sample(CELLS, 1)[0]
-        print_map(player)
+        print("You can't move {}.  Please try again.".format(move))
   
     # Good move?  Change position
-    # Bad move? Dont' change anything
+    # DONE - Bad move? Dont' change anything
     # On the door? They win!
     # On the monster? They lose!
     # Otherwise, loop back around
